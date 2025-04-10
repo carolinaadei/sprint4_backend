@@ -1,4 +1,5 @@
-import { Controller, Get, Req, Post} from '@nestjs/common';
+import { Body,Controller, Get, Req, Post} from '@nestjs/common'; //Body *Patricia
+import { CreateUserDto } from 'src/dto/user/create-user.dto'; // LINHA DTO Patricia
 
 @Controller('users')
 export class UsersController {
@@ -8,15 +9,18 @@ export class UsersController {
     return 'This action returns all users';
   }
 
-  @Post()
+  /*@Post()
   create(): string {
     return 'This action adds a new user';
-  }
+  }*/
+
     
- /*@Post()
-  create(@Body() dto: CreateUserDto) {
-    return this.userService.create(dto);
+  @Post() //Patricia DTO
+  create(@Body() dto: CreateUserDto): string {
+  console.log(dto);
+    return 'User created successfully!!';
   }
   
-*/
+  
+
 }

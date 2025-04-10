@@ -1,3 +1,4 @@
+/*DTO  Create User- Patricia */
 import {IsEmail, IsNotEmpty, IsString, IsInt, Min, Max } from 'class-validator';
 
 export class CreateUserDto{
