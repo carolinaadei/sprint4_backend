@@ -1,31 +1,34 @@
-
 import { Controller, Get, Query, Post, Body, Put, Param, Delete } from '@nestjs/common';
-import { CreatePlaceDto, UpdatePlaceDto, ListAllEntities } from './dto';
+import { PlacesService } from '../service/place.service';
+import { CreatePlaceDto } from './dto/create-place.dto';
+import { UpdatePlaceDto } from './dto/update-place.dto';
 
-@Controller('Places')
+@Controller('places')
 export class PlacesController {
+  constructor(private readonly placesService: PlacesService) {}
+
   @Post()
-  create(@Body() CreatePlaceDto: CreatePlaceDto) {
-    return 'This action adds a new Place';
+  create(@Body() createPlaceDto: CreatePlaceDto) {
+    return this.placesService.create(createPlaceDto);
   }
 
   @Get()
-  findAll(@Query() query: ListAllEntities) {
-    return `This action returns all Places (limit: ${query.limit} items)`;
+  findAll() {
+    return this.placesService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `This action returns a #${id} Place`;
+    return this.placesService.findOne(id);
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() updatePlaceDto: UpdatePlaceDto) {
-    return `This action updates a #${id} Place`;
+    return this.placesService.update(id, updatePlaceDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `This action removes a #${id} Place`;
+    return this.placesService.remove(id);
   }
 }
