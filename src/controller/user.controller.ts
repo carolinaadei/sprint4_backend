@@ -1,5 +1,5 @@
-import { Body,Controller, Get, Req, Post} from '@nestjs/common'; //Body *Patricia
-import { create } from 'domain';
+import { Body,Controller, Get, Post} from '@nestjs/common'; //Body *Patricia (TINHA Req, tirei)
+//import { create } from 'domain';
 import { CreateUserDto } from 'src/dto/user/create-user.dto'; // LINHA DTO Patricia
 import { UserService } from 'src/service/user.service';
 

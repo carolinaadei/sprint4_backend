@@ -1,17 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from 'src/dto/user/create-user.dto';
-import { UserRepository } from 'src/repository/user.repository';
+//import { UserRepository } from 'src/repository/user.repository';
 
 @Injectable()
 export class UserService{
-    constructor(private readonly userRepository : UserRepository){}
-    
-    create(dto: CreateUserDto) : string{
-
-        return this.userRepository.save(dto);
-    }
+    private users: string[] = [];
 
     findAll(): string[]{
-        return this.userRepository.findAll();
+        return this.users;
     }
+    
+    create(dto: CreateUserDto) : string{
+        const newUser = `${dto.name}(${dto.email})`;
+        this.users.push(newUser);
+
+        return 'User created succesfully!!';
+    }
+
 }
