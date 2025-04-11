@@ -8,20 +8,20 @@ datasource db {
 }
 
 model Login {
-  id       String  @id
+  id       Int  @id @default(autoincrement())
   token    String?
   email    String?
   password String?
 }
 
 model Place {
-  id          String @id
+  id          Int  @id @default(autoincrement())
   description String
   acessLevel  Int
 }
 
 model User {
-  id          String @id
+  id          Int  @id @default(autoincrement())
   name        String
   email       String @unique
   level       Int
@@ -30,8 +30,8 @@ model User {
 }
 
 model Badge {
-  id         String @id
-  userId     String @unique
+  id         Int    @id @default(autoincrement())
+  userId     Int    @unique
   badge_url  String
   user       User   @relation(fields: [userId], references: [id])
 }
