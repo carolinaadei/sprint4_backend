@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PlacesRepository } from '../repository/place.repository';
-import { CreatePlaceDto } from '../controller/dto/create-place.dto';
-import { UpdatePlaceDto } from '../controller/dto/update-place.dto';
+import { CreatePlaceDto } from '../dto/create-place.dto';
+import { UpdatePlaceDto } from '../dto/update-place.dto';
+import { BlockPlaceDto } from 'src/dto/block-place';
 
 @Injectable()
 export class PlacesService {
-  constructor(private readonly placesRepository: PlacesRepository) {}
+  constructor(private readonly placesRepository: PlacesRepository) { }
 
   create(data: CreatePlaceDto) {
     return this.placesRepository.create(data);
@@ -15,15 +16,19 @@ export class PlacesService {
     return this.placesRepository.findAll();
   }
 
-  findOne(id: string) {
+  findOne(id: number) {
     return this.placesRepository.findOne(id);
   }
 
-  update(id: string, data: UpdatePlaceDto) {
+  update(id: number, data: UpdatePlaceDto) {
     return this.placesRepository.update(id, data);
   }
 
-  remove(id: string) {
+  patch(id: number, data: BlockPlaceDto) {
+    return this.placesRepository.patch(id, data);
+  }
+
+  remove(id: number) {
     return this.placesRepository.remove(id);
   }
 }

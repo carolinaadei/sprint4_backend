@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { CreatePlaceDto } from '../controller/dto/create-place.dto';
-import { UpdatePlaceDto } from '../controller/dto/update-place.dto';
+import { CreatePlaceDto } from '../dto/create-place.dto';
+import { UpdatePlaceDto } from '../dto/update-place.dto';
+import { BlockPlaceDto } from 'src/dto/block-place';
 
 @Injectable()
 export class PlacesRepository {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   create(data: CreatePlaceDto) {
     return this.prisma.place.create({ data });
@@ -15,15 +16,19 @@ export class PlacesRepository {
     return this.prisma.place.findMany();
   }
 
-  findOne(id: string) {
+  findOne(id: number) {
     return this.prisma.place.findUnique({ where: { id } });
   }
 
-  update(id: string, data: UpdatePlaceDto) {
+  update(id: number, data: UpdatePlaceDto) {
     return this.prisma.place.update({ where: { id }, data });
   }
 
-  remove(id: string) {
+  patch(id: number, data: BlockPlaceDto) {
+    return this.prisma.place.update({ where: { id }, data });
+  }
+
+  remove(id: number) {
     return this.prisma.place.delete({ where: { id } });
   }
 }

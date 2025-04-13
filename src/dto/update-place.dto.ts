@@ -1,10 +1,6 @@
-import { IsString, IsOptional, IsNumber, Min, Max } from 'class-validator';
+import { IsString, IsOptional, IsNumber, Min, Max, IsNotEmpty } from 'class-validator';
 
 export class UpdatePlaceDto {
-  @IsOptional()
-  @IsString()
-  id?: string;
-
   @IsOptional()
   @IsString()
   description?: string;
