@@ -11,7 +11,7 @@ export class UsersController {
   findAll() {                                               // -- uso a val userService para inserir o meu service no codigo
     return this.userService.findAll();
   }
-  
+
   @Get(':id') 
   findOne(@Param('id') id: number) {
     return this.userService.findOne(id);
