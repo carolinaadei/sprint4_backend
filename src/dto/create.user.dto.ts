@@ -1,4 +1,4 @@
-import {IsEmail, IsNotEmpty, IsString, MinLength} from '../../node_module/class-validator';
+import {IsEmail, IsNotEmpty, IsString, MinLength} from 'class-validator';
 
 export class CreateUserDto {
    @IsString()
@@ -11,4 +11,7 @@ export class CreateUserDto {
    @IsString()
    @MinLength(8)
    password: string;
+
+   level : number;
+   profile_img : string;
 }
