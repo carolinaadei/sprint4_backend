@@ -29,3 +29,4 @@ model Badge {
   badge_url  String
   user       User   @relation(fields: [userId], references: [id])
 }
+//teste
