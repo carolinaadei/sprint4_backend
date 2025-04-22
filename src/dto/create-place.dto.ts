@@ -9,7 +9,5 @@ export class CreatePlaceDto {
   @IsNumber()
   @Min(1)
   @Max(5)
-  accessLevel: number;
+  accessLevel: number; 
 }
-  
-
