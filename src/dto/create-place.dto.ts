@@ -1,4 +1,5 @@
 import { IsString, IsNotEmpty, IsNumber, Min, Max } from 'class-validator';
+
 export class CreatePlaceDto {
   @IsNotEmpty()
   @IsString()
@@ -8,7 +9,7 @@ export class CreatePlaceDto {
   @IsNumber()
   @Min(1)
   @Max(5)
-  acessLevel: number;
+  accessLevel: number;
 }
   
 
