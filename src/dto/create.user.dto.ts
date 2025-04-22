@@ -14,5 +14,5 @@ export class CreateUserDto {
 
    @IsNotEmpty()
    level : number;
-   profile_img? : string;
+   profile_img : string;
 }
