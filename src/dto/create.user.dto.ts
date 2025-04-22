@@ -1,4 +1,4 @@
-import {IsEmail, isNotEmpty, IsNotEmpty, IsString, MinLength} from 'class-validator';
+import {IsEmail, isNotEmpty, IsNotEmpty, IsOptional, IsString, MinLength} from 'class-validator';
 
 export class CreateUserDto {
    @IsString()
@@ -14,5 +14,7 @@ export class CreateUserDto {
 
    @IsNotEmpty()
    level : number;
-   profile_img : string;
+
+   @IsOptional()
+   profile_img? : string;
 }
