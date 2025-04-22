@@ -1,17 +1,30 @@
-//Repository User Patricia
-import { Injectable } from "@nestjs/common";
-import { CreateUserDto } from "src/dto/user/create-user.dto";
+import { Injectable } from '@nestjs/common'
+import { PrismaService } from '../prisma.service'
+import { CreateUserDto } from '../dto/create.user.dto'
+import { UpdateUserDto } from '../dto/update.user.dto'
 
 @Injectable()
-export class UserRepository{
-    private users: CreateUserDto[]= [];
+export class UserRepository {
+    constructor(private prisma: PrismaService) {}
 
-    save(dto: CreateUserDto) : string{
-        this.users.push(dto);
-        return 'User saved in repository';
+    findAll() {
+        return this.prisma.user.findMany()
     }
 
-    findAll():string[]{
-        return this.users.map(=> `${user.name}- ${user.emaill}`);
+    findOne(id: number) {
+        return this.prisma.user.findUnique({ where: { id } })
     }
-}
+
+    create(data: CreateUserDto) {
+        return this.prisma.user.create({ data } )
+    }    
+
+    remove(id: number) {
+        return this.prisma.user.delete({ where: { id } })
+    }
+
+    update(id: number, data: UpdateUserDto) {
+        return this.prisma.user.update({ where: { id }, data })
+    }
+
+}//a
