@@ -1,30 +1,26 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from './prisma/prisma.service'; 
-import { User } from '@prisma/client';
-import * as bcrypt from 'bcrypt'; 
+import { Module } from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
+import { PrismaService } from '../prisma/prisma.service';
+import { PassportModule } from '@nestjs/passport';
+import { LocalStrategy } from './local.strategy';
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './jwt.strategy';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
-@Injectable()
-export class AuthService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly jwtService: JwtService,
-  ) {}
-
-  async validateUser(username: string, pass: string): Promise<User | null> {
-    const user = await this.prisma.user.findUnique({ where: { username } });
-
-    if (user && (await bcrypt.compare(pass, user.password))) {
-      const { password, ...result } = user;
-      return result;
-    }
-    return null;
-  }
-
-  async login(user: any) {
-    const payload = { username: user.username, sub: user.id };
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-    };
-  }
-}
+@Module({
+  imports: [
+    PassportModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: '1h' }, // Defina o tempo de expiração do token
+      }),
+    }),
+  ],
+  providers: [AuthService, PrismaService, LocalStrategy, JwtStrategy],
+  controllers: [AuthController],
+})
+export class AuthModule {}
